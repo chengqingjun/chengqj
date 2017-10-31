@@ -5,13 +5,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by cheng on 2017/10/30.
  */
 @Document(collection = "article")
-public class ArticleModel {
+public class ArticleModel implements Serializable{
     @Id
     private int id;
     private String title;

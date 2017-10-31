@@ -1,5 +1,6 @@
 package com.chengqj.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.chengqj.dao.ITArticleDao;
 import com.chengqj.model.ArticleModel;
 import com.chengqj.service.ITArticleService;
@@ -20,10 +21,10 @@ public class HelloWorldController {
     private ChengqjProperties properties;
     @Resource
     private ITArticleService tArticleService;
-    @RequestMapping(value="/hello",method = RequestMethod.GET)
-    public String index(@RequestBody ArticleModel model) {
+    @RequestMapping(value="/insert",method = RequestMethod.POST)
+    public String insert(@ModelAttribute ArticleModel model) {
         tArticleService.insert(model);
-        return "Hello World";
+        return "success";
     }
     @RequestMapping(value="/selectById/{id}",method = RequestMethod.GET)
     public ArticleModel selectById(@PathVariable Integer id) {
@@ -32,5 +33,17 @@ public class HelloWorldController {
     @RequestMapping("/selectList/{type}/{smallType}")
     public List<ArticleModel> selectList(@PathVariable Integer type,@PathVariable Integer smallType) {
         return tArticleService.selectByType(type,smallType);
+    }
+
+    public static void main(String[] args) {
+        ArticleModel model  = new ArticleModel();
+        model.setCreateDate(new Date());
+        model.setContext("context");
+        model.setType(1);
+        model.setTitle("title");
+        model.setSmallType(1);
+        model.setReadNum(1);
+        model.setId(21);
+        System.out.println(JSON.toJSONString(model));
     }
 }
